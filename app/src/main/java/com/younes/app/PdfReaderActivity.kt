@@ -771,8 +771,14 @@ class PdfReaderActivity : AppCompatActivity() {
             KeyEvent.KEYCODE_PAGE_DOWN -> { pdfViewer.nextPage(); showControls(); return true }
             KeyEvent.KEYCODE_PLUS, KeyEvent.KEYCODE_NUMPAD_ADD -> { pdfViewer.zoomIn(); showControls(); return true }
             KeyEvent.KEYCODE_MINUS, KeyEvent.KEYCODE_NUMPAD_SUBTRACT -> { pdfViewer.zoomOut(); showControls(); return true }
-            KeyEvent.KEYCODE_CHANNEL_UP -> { pdfViewer.previousPage(); showControls(); return true }
-            KeyEvent.KEYCODE_CHANNEL_DOWN -> { pdfViewer.nextPage(); showControls(); return true }
+            KeyEvent.KEYCODE_CHANNEL_UP -> {
+                if (pdfViewer.isZoomed) pdfViewer.panUp() else pdfViewer.previousPage()
+                showControls(); return true
+            }
+            KeyEvent.KEYCODE_CHANNEL_DOWN -> {
+                if (pdfViewer.isZoomed) pdfViewer.panDown() else pdfViewer.nextPage()
+                showControls(); return true
+            }
             KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER -> {
                 val isSujet = examType.equals("SUJET", ignoreCase = true)
                 if (isSujet) {

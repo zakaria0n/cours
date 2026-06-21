@@ -47,8 +47,8 @@
 
     <!-- Help -->
     <string name="help_title">Contrôles</string>
-    <string name="help_content">↑ / ↓ Zoom + / Zoom −\n← / → Pages (zoomé : déplacer)\nP+ / P− Change de page à tout moment\nOK Ouvrir le chrono\nGuide / Info Afficher cette aide\nRetour Quitter</string>
-    <string name="help_hint_bar">↑↓ Zoom    ←→ Pages/Pan    P+/P− Pages    OK Chrono</string>
+    <string name="help_content">↑ / ↓ Zoom + / Zoom −\n← / → Déplacer (zoomé) ou pages\nCH+ / CH− Déplacer haut/bas (zoomé) ou pages\nP+ / P− Change de page à tout moment\nOK Ouvrir le chrono\nRetour Quitter</string>
+    <string name="help_hint_bar">↑↓ Zoom    ←→↕↕ Pan/Pages    P+/P− Pages    OK Chrono</string>
 
     <!-- Control bar buttons -->
     <string name="btn_previous">Précédent</string>
