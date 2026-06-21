@@ -122,6 +122,14 @@ class PdfReaderActivity : AppCompatActivity() {
             pdfViewer.nextPage(); showControls()
         }
 
+        // Zoom buttons (phone portrait layout)
+        findViewById<View>(R.id.btnZoomIn)?.setOnClickListener {
+            pdfViewer.zoomIn(); showControls()
+        }
+        findViewById<View>(R.id.btnZoomOut)?.setOnClickListener {
+            pdfViewer.zoomOut(); showControls()
+        }
+
         // Timer views — accessed directly from included layouts
         timerFloatingContainer = findViewById(R.id.timerFloatingBtn)
         timerFloatingIcon = findViewById(R.id.timerFloatingIcon)
