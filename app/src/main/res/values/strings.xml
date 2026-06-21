@@ -50,6 +50,10 @@
     <string name="help_content">↑ / ↓ Zoom + / Zoom −\n← / → Déplacer (zoomé) ou pages\nCH+ / CH− Déplacer haut/bas (zoomé) ou pages\nP+ / P− Change de page à tout moment\nOK Ouvrir le chrono\nRetour Quitter</string>
     <string name="help_hint_bar">↑↓ Zoom    ←→↕↕ Pan/Pages    P+/P− Pages    OK Chrono</string>
 
+    <!-- Help phone (touch) -->
+    <string name="help_content_phone">Pinch : Zoom\nSwipe : Déplacer (zoomé)\nTap gauche : Page précédente\nTap droite : Page suivante\nRetour : Quitter</string>
+    <string name="help_hint_bar_phone">Pinch Zoom • Swipe Pan • Tap Pages</string>
+
     <!-- Control bar buttons -->
     <string name="btn_previous">Précédent</string>
     <string name="btn_next">Suivant</string>

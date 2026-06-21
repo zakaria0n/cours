@@ -95,6 +95,7 @@ class PdfReaderActivity : AppCompatActivity() {
 
         // PDF views
         pdfViewer = findViewById(R.id.pdfViewer)
+        pdfViewer.isFocusableInTouchMode = true
         pageIndicator = findViewById(R.id.pageIndicator)
         errorText = findViewById(R.id.errorText)
         helpHintText = findViewById(R.id.helpHintText)
@@ -109,6 +110,9 @@ class PdfReaderActivity : AppCompatActivity() {
         btnScrollDown = findViewById(R.id.btnScrollDown)
         btnScrollUp.setOnClickListener { pdfViewer.panUp(); showControls() }
         btnScrollDown.setOnClickListener { pdfViewer.panDown(); showControls() }
+
+        // Back button (phone portrait layout)
+        findViewById<View>(R.id.backButton)?.setOnClickListener { onBackPressed() }
 
         // Timer views — accessed directly from included layouts
         timerFloatingContainer = findViewById(R.id.timerFloatingBtn)

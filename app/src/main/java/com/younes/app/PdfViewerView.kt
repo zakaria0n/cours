@@ -10,6 +10,9 @@ import android.graphics.pdf.PdfRenderer
 import android.os.ParcelFileDescriptor
 import android.util.AttributeSet
 import android.util.Log
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.view.View
 import kotlinx.coroutines.*
 import java.io.File
@@ -87,6 +90,58 @@ class PdfViewerView @JvmOverloads constructor(
         color = Color.parseColor("#E74C3C")
         textSize = 40f
         textAlign = Paint.Align.CENTER
+    }
+
+    // --- Touch / Gestures ---
+    private val scaleDetector: ScaleGestureDetector
+    private val gestureDetector: GestureDetector
+
+    init {
+        scaleDetector = ScaleGestureDetector(context,
+            object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+                override fun onScale(detector: ScaleGestureDetector): Boolean {
+                    if (!_pdfReady) return false
+                    val newZoom = (_zoom * detector.scaleFactor).coerceIn(ZOOM_MIN, ZOOM_MAX)
+                    if (newZoom != _zoom) {
+                        _zoom = newZoom
+                        bitmapCache.clear()
+                        renderPage(_pageIndex)
+                    }
+                    return true
+                }
+            })
+
+        gestureDetector = GestureDetector(context,
+            object : GestureDetector.SimpleOnGestureListener() {
+                override fun onDown(e: MotionEvent): Boolean = true
+
+                override fun onScroll(
+                    e1: MotionEvent?, e2: MotionEvent, dx: Float, dy: Float
+                ): Boolean {
+                    if (isZoomed) {
+                        _panX -= dx
+                        _panY -= dy
+                        invalidate()
+                        return true
+                    }
+                    return false
+                }
+
+                override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                    if (!_pdfReady) return false
+                    val x = e.x
+                    val w = this@PdfViewerView.width.toFloat()
+                    if (x < w / 3) previousPage()
+                    else if (x > w * 2 / 3) nextPage()
+                    return true
+                }
+            })
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        scaleDetector.onTouchEvent(event)
+        gestureDetector.onTouchEvent(event)
+        return true
     }
 
     // ================================================================

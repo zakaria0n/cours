@@ -11,8 +11,8 @@ android {
         applicationId = "com.younes.app"
         minSdk = 21
         targetSdk = 34
-        versionCode = System.getenv("VERSION_CODE")?.toIntOrNull() ?: 4
-        versionName = System.getenv("VERSION_NAME") ?: "1.3.0"
+        versionCode = System.getenv("VERSION_CODE")?.toIntOrNull() ?: 5
+        versionName = System.getenv("VERSION_NAME") ?: "1.4.0"
     }
 
     signingConfigs {

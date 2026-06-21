@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/younes_pdf_bg">
+
+    <!-- PDF full screen -->
+    <com.younes.app.PdfViewerView
+        android:id="@+id/pdfViewer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <!-- Compact top bar: back button, title, page indicator -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="top"
+        android:background="@drawable/top_bar_background"
+        android:elevation="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="16dp"
+        android:visibility="visible">
+
+        <!-- Back button -->
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Retour"
+            android:padding="8dp"
+            android:src="@drawable/ic_back" />
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="0dp" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Younes"
+            android:textColor="@color/younes_navy_dark"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Page indicator -->
+        <TextView
+            android:id="@+id/pageIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/younes_navy_dark"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- Zoom indicator (hidden by default, centered) -->
+    <TextView
+        android:id="@+id/zoomIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/zoom_indicator_bg"
+        android:elevation="6dp"
+        android:paddingStart="20dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="8dp"
+        android:textColor="@color/younes_cyan"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <!-- Error message center -->
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/text_error"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <!-- Loading overlay -->
+    <LinearLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/loading_bg"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="12dp"
+            android:indeterminateTint="@color/younes_cyan" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading_text"
+            android:textColor="@color/younes_text_secondary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- Help hint bar (phone touch) -->
+    <TextView
+        android:id="@+id/helpHintText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="12dp"
+        android:text="@string/help_hint_bar_phone"
+        android:textColor="@color/younes_text_secondary"
+        android:textSize="12sp"
+        android:alpha="0.85"
+        android:visibility="gone" />
+
+    <!-- Help overlay (hidden by default) -->
+    <LinearLayout
+        android:id="@+id/helpOverlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/loading_bg"
+        android:elevation="12dp"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:visibility="gone"
+        android:focusable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/help_title"
+            android:textColor="@color/younes_navy_dark"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="8dp"
+            android:text="@string/help_content_phone"
+            android:textColor="@color/younes_text_secondary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- Timer floating button -->
+    <include
+        layout="@layout/timer_floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="12dp"
+        android:elevation="6dp" />
+
+    <!-- Timer panel overlay -->
+    <include layout="@layout/timer_panel" />
+
+    <!-- Timer finished overlay -->
+    <include layout="@layout/timer_finished_overlay" />
+
+    <!-- Timer duration picker -->
+    <include layout="@layout/timer_duration_picker" />
+
+    <!-- Scroll up/down buttons (visible only when zoomed) -->
+    <LinearLayout
+        android:id="@+id/scrollButtons"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/scroll_buttons_bg"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:alpha="0.9">
+
+        <TextView
+            android:id="@+id/btnScrollUp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="▲"
+            android:textColor="@color/younes_navy_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:focusable="true"
+            android:background="@drawable/button_focused" />
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="1dp"
+            android:background="@color/younes_border"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp" />
+
+        <TextView
+            android:id="@+id/btnScrollDown"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="▼"
+            android:textColor="@color/younes_navy_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:focusable="true"
+            android:background="@drawable/button_focused" />
+
+    </LinearLayout>
+
+</FrameLayout>
