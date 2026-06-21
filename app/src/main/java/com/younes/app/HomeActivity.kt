@@ -2,6 +2,7 @@ package com.younes.app
 
 import android.animation.ValueAnimator
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -55,6 +56,12 @@ class HomeActivity : AppCompatActivity() {
         setupSubjectsGrid()
         loadContinueReading()
         setupUpdates()
+
+        // Hide TV-only elements on phone portrait
+        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            helpHint.visibility = View.GONE
+            findViewById<View>(R.id.tvBadge)?.visibility = View.GONE
+        }
     }
 
     private fun setupUpdates() {
@@ -91,7 +98,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupSubjectsGrid() {
-        val layoutManager = GridLayoutManager(this, 3)
+        val spanCount = if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 2 else 3
+        val layoutManager = GridLayoutManager(this, spanCount)
         subjectsGrid.layoutManager = layoutManager
         subjectsGrid.adapter = subjectsAdapter
 
@@ -106,7 +114,6 @@ class HomeActivity : AppCompatActivity() {
                 state: RecyclerView.State
             ) {
                 val pos = parent.getChildAdapterPosition(view)
-                val spanCount = 3
                 val col = pos % spanCount
 
                 outRect.left = if (col == 0) 0 else gapPx / 2

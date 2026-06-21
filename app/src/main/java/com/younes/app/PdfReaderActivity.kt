@@ -114,6 +114,14 @@ class PdfReaderActivity : AppCompatActivity() {
         // Back button (phone portrait layout)
         findViewById<View>(R.id.backButton)?.setOnClickListener { onBackPressed() }
 
+        // Page navigation buttons (phone portrait layout)
+        findViewById<View>(R.id.btnPrevPage)?.setOnClickListener {
+            pdfViewer.previousPage(); showControls()
+        }
+        findViewById<View>(R.id.btnNextPage)?.setOnClickListener {
+            pdfViewer.nextPage(); showControls()
+        }
+
         // Timer views — accessed directly from included layouts
         timerFloatingContainer = findViewById(R.id.timerFloatingBtn)
         timerFloatingIcon = findViewById(R.id.timerFloatingIcon)

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.pdf.PdfRenderer
@@ -23,7 +24,7 @@ private const val TAG = "YounesPDF"
 
 /**
  * Vue personnalisée pour afficher un PDF page par page via PdfRenderer.
- * Optimisé pour grand écran TV : rendu haute qualité, centrage, zoom, pan.
+ * Supporte télécommande TV et touch téléphone.
  */
 class PdfViewerView @JvmOverloads constructor(
     context: Context,
@@ -50,6 +51,13 @@ class PdfViewerView @JvmOverloads constructor(
     private var _panX = 0f
     private var _panY = 0f
     private val PAN_STEP = 0.25f
+
+    // --- Touch smooth zoom ---
+    private var _touchScale = 1.0f       // visual scale during pinch (1.0 = no pinch)
+    private var _pinchFocusX = 0f
+    private var _pinchFocusY = 0f
+    private var _isPinching = false
+    private var _pendingZoomRender = false
 
     // --- État interne ---
     private var _pendingAssetPath: String? = null
@@ -81,6 +89,7 @@ class PdfViewerView @JvmOverloads constructor(
 
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var renderJob: Job? = null
+    private var pendingRenderJob: Job? = null
 
     // --- Paints ---
     private val backgroundPaint = Paint().apply { color = Color.parseColor("#F0F2F6") }
@@ -95,19 +104,41 @@ class PdfViewerView @JvmOverloads constructor(
     // --- Touch / Gestures ---
     private val scaleDetector: ScaleGestureDetector
     private val gestureDetector: GestureDetector
+    private val drawMatrix = Matrix()
 
     init {
         scaleDetector = ScaleGestureDetector(context,
             object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-                override fun onScale(detector: ScaleGestureDetector): Boolean {
+                override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
                     if (!_pdfReady) return false
-                    val newZoom = (_zoom * detector.scaleFactor).coerceIn(ZOOM_MIN, ZOOM_MAX)
+                    _isPinching = true
+                    _touchScale = 1.0f
+                    _pinchFocusX = detector.focusX
+                    _pinchFocusY = detector.focusY
+                    return true
+                }
+
+                override fun onScale(detector: ScaleGestureDetector): Boolean {
+                    if (!_isPinching) return false
+                    _touchScale = detector.scaleFactor
+                    _pinchFocusX = detector.focusX
+                    _pinchFocusY = detector.focusY
+                    invalidate()  // instant visual feedback, no re-render
+                    return true
+                }
+
+                override fun onScaleEnd(detector: ScaleGestureDetector) {
+                    if (!_isPinching) return
+                    _isPinching = false
+                    val newZoom = (_zoom * _touchScale).coerceIn(ZOOM_MIN, ZOOM_MAX)
+                    _touchScale = 1.0f
                     if (newZoom != _zoom) {
                         _zoom = newZoom
                         bitmapCache.clear()
                         renderPage(_pageIndex)
+                    } else {
+                        invalidate()
                     }
-                    return true
                 }
             })
 
@@ -118,7 +149,7 @@ class PdfViewerView @JvmOverloads constructor(
                 override fun onScroll(
                     e1: MotionEvent?, e2: MotionEvent, dx: Float, dy: Float
                 ): Boolean {
-                    if (isZoomed) {
+                    if (!_isPinching && isZoomed) {
                         _panX -= dx
                         _panY -= dy
                         invalidate()
@@ -128,7 +159,7 @@ class PdfViewerView @JvmOverloads constructor(
                 }
 
                 override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-                    if (!_pdfReady) return false
+                    if (!_pdfReady || _isPinching) return false
                     val x = e.x
                     val w = this@PdfViewerView.width.toFloat()
                     if (x < w / 3) previousPage()
@@ -449,10 +480,19 @@ class PdfViewerView @JvmOverloads constructor(
         left = clampPan(left, vw, bw)
         top = clampPan(top, vh, bh)
 
-        // Bordure
-        canvas.drawRect(RectF(left - 1f, top - 1f, left + bw + 1f, top + bh + 1f), pageBorderPaint)
-        // Page
-        canvas.drawBitmap(bmp, left, top, null)
+        // During pinch: apply smooth matrix transform around pinch focus point
+        if (_isPinching && _touchScale != 1.0f) {
+            drawMatrix.reset()
+            drawMatrix.postTranslate(-_pinchFocusX, -_pinchFocusY)
+            drawMatrix.postScale(_touchScale, _touchScale)
+            drawMatrix.postTranslate(_pinchFocusX, _pinchFocusY)
+            drawMatrix.postTranslate(left, top)
+            canvas.drawRect(RectF(left - 1f, top - 1f, left + bw + 1f, top + bh + 1f), pageBorderPaint)
+            canvas.drawBitmap(bmp, drawMatrix, null)
+        } else {
+            canvas.drawRect(RectF(left - 1f, top - 1f, left + bw + 1f, top + bh + 1f), pageBorderPaint)
+            canvas.drawBitmap(bmp, left, top, null)
+        }
     }
 
     private fun drawErrorMessage(canvas: Canvas, vw: Float, vh: Float) {

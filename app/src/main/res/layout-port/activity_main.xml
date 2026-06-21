@@ -187,6 +187,50 @@
     <!-- Timer duration picker -->
     <include layout="@layout/timer_duration_picker" />
 
+    <!-- Page navigation buttons (always visible on phone) -->
+    <LinearLayout
+        android:id="@+id/pageNavButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/scroll_buttons_bg"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:alpha="0.85">
+
+        <TextView
+            android:id="@+id/btnPrevPage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="◀"
+            android:textColor="@color/younes_navy_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:focusable="true"
+            android:background="@drawable/button_focused" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:background="@color/younes_border" />
+
+        <TextView
+            android:id="@+id/btnNextPage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="▶"
+            android:textColor="@color/younes_navy_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:focusable="true"
+            android:background="@drawable/button_focused" />
+
+    </LinearLayout>
+
     <!-- Scroll up/down buttons (visible only when zoomed) -->
     <LinearLayout
         android:id="@+id/scrollButtons"
