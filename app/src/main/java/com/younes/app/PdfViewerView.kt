@@ -8,6 +8,8 @@ import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.pdf.PdfRenderer
+import android.os.Handler
+import android.os.Looper
 import android.os.ParcelFileDescriptor
 import android.util.AttributeSet
 import android.util.Log
@@ -40,7 +42,8 @@ class PdfViewerView @JvmOverloads constructor(
     private var _pageCount = 0
 
     // --- Zoom ---
-    private var _zoom = 1.0f
+    private var _zoom = 1.0f           // logical zoom level
+    private var _renderZoom = 1.0f     // zoom at which currentBitmap was rendered
     private var _fitScale = 1.0f
     private var _fitWidthScale = 1.0f
     private val ZOOM_MIN = 0.5f
@@ -53,11 +56,10 @@ class PdfViewerView @JvmOverloads constructor(
     private val PAN_STEP = 0.25f
 
     // --- Touch smooth zoom ---
-    private var _touchScale = 1.0f       // visual scale during pinch (1.0 = no pinch)
+    private var _touchScale = 1.0f
     private var _pinchFocusX = 0f
     private var _pinchFocusY = 0f
     private var _isPinching = false
-    private var _pendingZoomRender = false
 
     // --- État interne ---
     private var _pendingAssetPath: String? = null
@@ -89,7 +91,8 @@ class PdfViewerView @JvmOverloads constructor(
 
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var renderJob: Job? = null
-    private var pendingRenderJob: Job? = null
+    private val uiHandler = Handler(Looper.getMainLooper())
+    private var debounceRenderRunnable: Runnable? = null
 
     // --- Paints ---
     private val backgroundPaint = Paint().apply { color = Color.parseColor("#F0F2F6") }
@@ -115,6 +118,7 @@ class PdfViewerView @JvmOverloads constructor(
                     _touchScale = 1.0f
                     _pinchFocusX = detector.focusX
                     _pinchFocusY = detector.focusY
+                    cancelDebounceRender()
                     return true
                 }
 
@@ -123,7 +127,7 @@ class PdfViewerView @JvmOverloads constructor(
                     _touchScale = detector.scaleFactor
                     _pinchFocusX = detector.focusX
                     _pinchFocusY = detector.focusY
-                    invalidate()  // instant visual feedback, no re-render
+                    invalidate()  // instant visual, no bitmap re-render
                     return true
                 }
 
@@ -132,13 +136,10 @@ class PdfViewerView @JvmOverloads constructor(
                     _isPinching = false
                     val newZoom = (_zoom * _touchScale).coerceIn(ZOOM_MIN, ZOOM_MAX)
                     _touchScale = 1.0f
-                    if (newZoom != _zoom) {
-                        _zoom = newZoom
-                        bitmapCache.clear()
-                        renderPage(_pageIndex)
-                    } else {
-                        invalidate()
-                    }
+                    _zoom = newZoom
+                    onZoomChanged?.invoke((_zoom * 100).toInt())
+                    invalidate()  // show scaled bitmap immediately
+                    debounceRenderPage()  // re-render crisp bitmap after delay
                 }
             })
 
@@ -172,7 +173,26 @@ class PdfViewerView @JvmOverloads constructor(
     override fun onTouchEvent(event: MotionEvent): Boolean {
         scaleDetector.onTouchEvent(event)
         gestureDetector.onTouchEvent(event)
+        if (event.action == MotionEvent.ACTION_UP && !_isPinching && _zoom != _renderZoom) {
+            debounceRenderPage()
+        }
         return true
+    }
+
+    private fun debounceRenderPage() {
+        cancelDebounceRender()
+        debounceRenderRunnable = Runnable {
+            if (_pdfReady && _zoom != _renderZoom) {
+                bitmapCache.clear()
+                renderPage(_pageIndex)
+            }
+        }
+        uiHandler.postDelayed(debounceRenderRunnable!!, 400)
+    }
+
+    private fun cancelDebounceRender() {
+        debounceRenderRunnable?.let { uiHandler.removeCallbacks(it) }
+        debounceRenderRunnable = null
     }
 
     // ================================================================
@@ -352,7 +372,8 @@ class PdfViewerView @JvmOverloads constructor(
 
         val viewW = _viewWidth
         val viewH = _viewHeight
-        Log.d(TAG, "renderPage($index) vue=${viewW}x${viewH} zoom=$_zoom")
+        _renderZoom = _zoom
+        Log.d(TAG, "renderPage($index) vue=${viewW}x${viewH} zoom=$_zoom renderZoom=$_renderZoom")
 
         renderJob?.cancel()
         renderJob = scope.launch {
@@ -460,7 +481,6 @@ class PdfViewerView @JvmOverloads constructor(
         val vh = height.toFloat()
         canvas.drawRect(0f, 0f, vw, vh, backgroundPaint)
 
-        // Afficher erreur
         if (_errorMessage != null) {
             drawErrorMessage(canvas, vw, vh)
             return
@@ -475,12 +495,10 @@ class PdfViewerView @JvmOverloads constructor(
         // Centrer + pan
         var left = (vw - bw) / 2f + _panX
         var top = (vh - bh) / 2f + _panY
-
-        // Limiter le pan
         left = clampPan(left, vw, bw)
         top = clampPan(top, vh, bh)
 
-        // During pinch: apply smooth matrix transform around pinch focus point
+        // If pinching: apply matrix transform around focus point
         if (_isPinching && _touchScale != 1.0f) {
             drawMatrix.reset()
             drawMatrix.postTranslate(-_pinchFocusX, -_pinchFocusY)
@@ -530,6 +548,7 @@ class PdfViewerView @JvmOverloads constructor(
         if (!_pdfReady) return
         _zoom = (_zoom + ZOOM_STEP).coerceAtMost(ZOOM_MAX)
         _panX = 0f; _panY = 0f
+        cancelDebounceRender()
         bitmapCache.clear()
         Log.d(TAG, "zoomIn -> ${_zoom}x")
         renderPage(_pageIndex)
@@ -539,6 +558,7 @@ class PdfViewerView @JvmOverloads constructor(
         if (!_pdfReady) return
         _zoom = (_zoom - ZOOM_STEP).coerceAtLeast(ZOOM_MIN)
         _panX = 0f; _panY = 0f
+        cancelDebounceRender()
         bitmapCache.clear()
         Log.d(TAG, "zoomOut -> ${_zoom}x")
         renderPage(_pageIndex)
@@ -547,6 +567,7 @@ class PdfViewerView @JvmOverloads constructor(
     fun resetZoom() {
         _zoom = 1.0f
         _panX = 0f; _panY = 0f
+        cancelDebounceRender()
         bitmapCache.clear()
         renderPage(_pageIndex)
     }
@@ -554,6 +575,7 @@ class PdfViewerView @JvmOverloads constructor(
     fun fitToPage() {
         _zoom = 1.0f
         _panX = 0f; _panY = 0f
+        cancelDebounceRender()
         bitmapCache.clear()
         Log.d(TAG, "fitToPage")
         renderPage(_pageIndex)
@@ -563,6 +585,7 @@ class PdfViewerView @JvmOverloads constructor(
         if (_fitScale > 0f) {
             _zoom = _fitWidthScale / _fitScale
             _panX = 0f; _panY = 0f
+            cancelDebounceRender()
             bitmapCache.clear()
             Log.d(TAG, "fitToWidth zoom=${_zoom}x")
             renderPage(_pageIndex)
