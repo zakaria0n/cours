@@ -56,6 +56,9 @@ class PdfReaderActivity : AppCompatActivity() {
     private var durationButtons: List<TextView> = emptyList()
     private lateinit var durConfirm: TextView
     private lateinit var durCancel: TextView
+    private lateinit var scrollButtons: View
+    private lateinit var btnScrollUp: TextView
+    private lateinit var btnScrollDown: TextView
 
     // State
     private var controlsVisible = true
@@ -99,6 +102,13 @@ class PdfReaderActivity : AppCompatActivity() {
         loadingOverlay = findViewById(R.id.loadingOverlay)
         topBar = findViewById(R.id.topBar)
         helpOverlay = findViewById(R.id.helpOverlay)
+
+        // Scroll buttons
+        scrollButtons = findViewById(R.id.scrollButtons)
+        btnScrollUp = findViewById(R.id.btnScrollUp)
+        btnScrollDown = findViewById(R.id.btnScrollDown)
+        btnScrollUp.setOnClickListener { pdfViewer.panUp(); showControls() }
+        btnScrollDown.setOnClickListener { pdfViewer.panDown(); showControls() }
 
         // Timer views — accessed directly from included layouts
         timerFloatingContainer = findViewById(R.id.timerFloatingBtn)
@@ -627,6 +637,7 @@ class PdfReaderActivity : AppCompatActivity() {
         controlsVisible = true
         topBar.visibility = View.VISIBLE
         pageIndicator.visibility = View.VISIBLE
+        scrollButtons.visibility = if (pdfViewer.isZoomed) View.VISIBLE else View.GONE
         helpHintText.visibility = View.GONE
         rescheduleAutoHide()
     }
@@ -636,6 +647,7 @@ class PdfReaderActivity : AppCompatActivity() {
         controlsVisible = false
         topBar.visibility = View.GONE
         pageIndicator.visibility = View.GONE
+        scrollButtons.visibility = if (pdfViewer.isZoomed) View.VISIBLE else View.GONE
         helpHintText.visibility = View.VISIBLE
         autoHideRunnable?.let { handler.removeCallbacks(it) }
     }

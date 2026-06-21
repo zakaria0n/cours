@@ -194,4 +194,55 @@
     <!-- Timer duration picker -->
     <include layout="@layout/timer_duration_picker" />
 
+    <!-- Scroll up/down buttons (visible only when zoomed) -->
+    <LinearLayout
+        android:id="@+id/scrollButtons"
+        android:layout_width="52dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/scroll_buttons_bg"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:alpha="0.9">
+
+        <TextView
+            android:id="@+id/btnScrollUp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:gravity="center"
+            android:text="▲"
+            android:textColor="@color/younes_navy_dark"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:focusable="true"
+            android:focusableInTouchMode="false"
+            android:background="@drawable/button_focused" />
+
+        <View
+            android:layout_width="36dp"
+            android:layout_height="1dp"
+            android:background="@color/younes_border"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/btnScrollDown"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:gravity="center"
+            android:text="▼"
+            android:textColor="@color/younes_navy_dark"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:focusable="true"
+            android:focusableInTouchMode="false"
+            android:background="@drawable/button_focused" />
+
+    </LinearLayout>
+
 </FrameLayout>
