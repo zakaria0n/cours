@@ -752,22 +752,17 @@ class PdfReaderActivity : AppCompatActivity() {
             return true
         }
 
-        // PDF zoomed: D-pad = pan
-        if (pdfViewer.isZoomed) {
-            when (keyCode) {
-                KeyEvent.KEYCODE_DPAD_LEFT -> { pdfViewer.panLeft(); showControls(); return true }
-                KeyEvent.KEYCODE_DPAD_RIGHT -> { pdfViewer.panRight(); showControls(); return true }
-                KeyEvent.KEYCODE_DPAD_UP -> { pdfViewer.panUp(); showControls(); return true }
-                KeyEvent.KEYCODE_DPAD_DOWN -> { pdfViewer.panDown(); showControls(); return true }
-                KeyEvent.KEYCODE_PAGE_UP -> { pdfViewer.previousPage(); showControls(); return true }
-                KeyEvent.KEYCODE_PAGE_DOWN -> { pdfViewer.nextPage(); showControls(); return true }
+        // D-pad up/down = zoom (always), left/right = pan when zoomed, pages when not
+        when (keyCode) {
+            KeyEvent.KEYCODE_DPAD_UP -> { pdfViewer.zoomIn(); showControls(); return true }
+            KeyEvent.KEYCODE_DPAD_DOWN -> { pdfViewer.zoomOut(); showControls(); return true }
+            KeyEvent.KEYCODE_DPAD_LEFT -> {
+                if (pdfViewer.isZoomed) pdfViewer.panLeft() else pdfViewer.previousPage()
+                showControls(); return true
             }
-        } else {
-            when (keyCode) {
-                KeyEvent.KEYCODE_DPAD_RIGHT -> { pdfViewer.nextPage(); showControls(); return true }
-                KeyEvent.KEYCODE_DPAD_LEFT -> { pdfViewer.previousPage(); showControls(); return true }
-                KeyEvent.KEYCODE_DPAD_UP -> { pdfViewer.zoomIn(); showControls(); return true }
-                KeyEvent.KEYCODE_DPAD_DOWN -> { pdfViewer.zoomOut(); showControls(); return true }
+            KeyEvent.KEYCODE_DPAD_RIGHT -> {
+                if (pdfViewer.isZoomed) pdfViewer.panRight() else pdfViewer.nextPage()
+                showControls(); return true
             }
         }
 
