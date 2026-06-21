@@ -1,0 +1,20 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Star geometric pattern -->
+    <path
+        android:fillColor="#132B5C"
+        android:pathData="M24,6L28,18L40,18L30,26L34,38L24,30L14,38L18,26L8,18L20,18Z" />
+    <path
+        android:fillColor="#F2C94C"
+        android:pathData="M24,12L26.5,20L34,20L28,25.5L30.5,33L24,28.5L17.5,33L20,25.5L14,20L21.5,20Z" />
+    <!-- Book base -->
+    <path
+        android:fillColor="#0B1D3A"
+        android:pathData="M8,40L40,40L40,42L8,42Z" />
+    <path
+        android:fillColor="#132B5C"
+        android:pathData="M10,36L38,36L38,40L10,40Z" />
+</vector>

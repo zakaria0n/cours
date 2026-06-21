@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/timerPanelRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000"
+    android:visibility="gone"
+    android:focusable="false"
+    android:focusableInTouchMode="false">
+
+    <LinearLayout
+        android:layout_width="780dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/timer_card_background"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="40dp">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/timer_title"
+            android:textColor="@color/younes_navy_dark"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <!-- Subject name -->
+        <TextView
+            android:id="@+id/timerSubjectName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/younes_text_secondary"
+            android:textSize="18sp" />
+
+        <!-- Remaining time -->
+        <TextView
+            android:id="@+id/timerRemainingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="monospace"
+            android:text="02:00:00"
+            android:textColor="@color/younes_navy_dark"
+            android:textSize="52sp"
+            android:textStyle="bold" />
+
+        <!-- Progress bar -->
+        <ProgressBar
+            android:id="@+id/timerProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="20dp"
+            android:max="100"
+            android:progress="100"
+            android:progressDrawable="@drawable/timer_progress_drawable" />
+
+        <!-- Alert text -->
+        <TextView
+            android:id="@+id/timerAlertText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <!-- Buttons row -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/timerBtnPauseResume"
+                style="@style/ControlButton"
+                android:nextFocusLeft="@id/timerBtnClose"
+                android:text="@string/timer_pause" />
+
+            <View
+                android:layout_width="12dp"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:id="@+id/timerBtnAdd5"
+                style="@style/ControlButton"
+                android:text="@string/timer_add_5min" />
+
+            <View
+                android:layout_width="12dp"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:id="@+id/timerBtnModify"
+                style="@style/ControlButton"
+                android:text="@string/timer_modify" />
+
+            <View
+                android:layout_width="12dp"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:id="@+id/timerBtnReset"
+                style="@style/ControlButton"
+                android:background="@drawable/timer_button_danger_selector"
+                android:text="@string/timer_reset" />
+
+            <View
+                android:layout_width="12dp"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:id="@+id/timerBtnClose"
+                style="@style/ControlButton"
+                android:nextFocusRight="@id/timerBtnPauseResume"
+                android:text="@string/timer_close" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

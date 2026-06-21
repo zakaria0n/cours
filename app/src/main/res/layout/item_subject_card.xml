@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/subjectCard"
+    android:layout_width="@dimen/home_subject_card_width"
+    android:layout_height="@dimen/home_subject_card_height"
+    android:background="@drawable/bg_subject_card_selector"
+    android:clickable="true"
+    android:elevation="2dp"
+    android:focusable="true"
+    android:focusableInTouchMode="false"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingStart="20dp"
+    android:paddingTop="20dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="16dp">
+
+    <!-- Duration badge top-right (inside card via negative margin trick) -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0">
+
+        <TextView
+            android:id="@+id/subjectDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|top"
+            android:background="@drawable/bg_duration_badge"
+            android:paddingStart="10dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="4dp"
+            android:text="2h"
+            android:textColor="@color/younes_text_secondary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <!-- Icon in circle -->
+    <FrameLayout
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_icon_circle">
+
+        <ImageView
+            android:id="@+id/subjectIcon"
+            android:layout_width="@dimen/home_icon_size"
+            android:layout_height="@dimen/home_icon_size"
+            android:layout_gravity="center"
+            android:contentDescription="Ic\u00F4ne mati\u00E8re" />
+
+    </FrameLayout>
+
+    <!-- Arabic name -->
+    <TextView
+        android:id="@+id/subjectNameAr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/younes_navy_dark"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- French name -->
+    <TextView
+        android:id="@+id/subjectNameFr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/younes_text_secondary"
+        android:textSize="14sp" />
+
+    <!-- Cyan accent line at bottom -->
+    <View
+        android:id="@+id/subjectAccentLine"
+        android:layout_width="40dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/younes_border" />
+
+</LinearLayout>

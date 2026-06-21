@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Triangle ruler -->
+    <path
+        android:fillColor="#132B5C"
+        android:pathData="M6,40L24,8L42,40Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,16L38,38H10Z"
+        android:strokeAlpha="0.3" />
+    <!-- Accent line -->
+    <path
+        android:fillColor="#00D4F2"
+        android:pathData="M10,38L38,38L38,40L10,40Z" />
+    <!-- Pi symbol accent -->
+    <path
+        android:fillColor="#F2C94C"
+        android:pathData="M22,26L24,20L26,26M21.5,30H26.5" />
+</vector>

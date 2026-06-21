@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/younes_background">
+
+    <!-- Main scrollable content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/home_padding_horizontal"
+        android:paddingTop="@dimen/home_padding_top"
+        android:paddingEnd="@dimen/home_padding_horizontal"
+        android:paddingBottom="@dimen/home_padding_bottom">
+
+        <!-- Header row -->
+        <LinearLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Horizontal logo -->
+            <ImageView
+                android:layout_width="@dimen/home_logo_width"
+                android:layout_height="@dimen/home_logo_height"
+                android:adjustViewBounds="true"
+                android:contentDescription="Younes"
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo_younes_horizontal" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <!-- Android TV badge -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_android_tv_badge"
+                android:paddingStart="14dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="14dp"
+                android:paddingBottom="6dp"
+                android:text="Android TV"
+                android:textColor="@color/younes_text_secondary"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <!-- Hero section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Préparation aux examens régionaux"
+                android:textColor="@color/younes_navy_dark"
+                android:textSize="@dimen/home_title_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Choisissez une matière pour commencer"
+                android:textColor="@color/younes_text_secondary"
+                android:textSize="@dimen/home_subtitle_size" />
+
+        </LinearLayout>
+
+        <!-- Continue reading card -->
+        <LinearLayout
+            android:id="@+id/continueReadingBanner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_continue_height"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="@dimen/home_continue_margin_bottom"
+            android:background="@drawable/bg_continue_card_selector"
+            android:clickable="true"
+            android:elevation="3dp"
+            android:focusable="true"
+            android:focusableInTouchMode="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="28dp"
+            android:paddingEnd="28dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/continue_reading"
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo_younes_icon" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/continue_reading"
+                    android:textColor="@color/younes_cyan"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/continueReadingTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/younes_text_secondary"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&#9654;"
+                android:textColor="@color/younes_cyan"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <!-- Subjects grid -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/subjectsGrid"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:focusable="false" />
+
+    </LinearLayout>
+
+    <!-- Loading overlay -->
+    <LinearLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/loading_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="40dp"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:indeterminateTint="@color/younes_cyan" />
+
+        <TextView
+            android:id="@+id/loadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading_text"
+            android:textColor="@color/younes_text_primary"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <!-- Error message -->
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/younes_text_primary"
+        android:textSize="22sp"
+        android:visibility="gone" />
+
+    <!-- Footer help at very bottom -->
+    <LinearLayout
+        android:id="@+id/helpHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:alpha="0.6"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK s\u00E9lectionner"
+            android:textColor="@color/younes_text_secondary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="\u2022"
+            android:textColor="@color/younes_border"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Retour revenir"
+            android:textColor="@color/younes_text_secondary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- Mise à jour GitHub, pilotable entièrement au D-pad -->
+    <LinearLayout
+        android:id="@+id/updateCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/loading_bg"
+        android:elevation="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="24dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/updateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:maxWidth="420dp"
+            android:textColor="@color/younes_navy_dark"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnUpdateDownload"
+            style="@style/ControlButton"
+            android:text="@string/update_download" />
+
+        <View
+            android:layout_width="12dp"
+            android:layout_height="1dp" />
+
+        <TextView
+            android:id="@+id/btnUpdateLater"
+            style="@style/ControlButton"
+            android:text="@string/update_later" />
+
+    </LinearLayout>
+
+    <!-- Cyan accent line at very bottom -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_gravity="bottom"
+        android:background="@color/younes_cyan" />
+
+</FrameLayout>

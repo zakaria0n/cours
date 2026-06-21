@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/timerDurationRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000"
+    android:visibility="gone"
+    android:focusable="false"
+    android:focusableInTouchMode="false">
+
+    <LinearLayout
+        android:layout_width="760dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/timer_card_background"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/timer_duration_title"
+            android:textColor="@color/younes_navy_dark"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Duration options -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/dur30" style="@style/ControlButton" android:nextFocusLeft="@id/dur120" android:nextFocusDown="@id/durConfirm" android:text="30 min" />
+            <View android:layout_width="8dp" android:layout_height="1dp" />
+            <TextView android:id="@+id/dur45" style="@style/ControlButton" android:nextFocusDown="@id/durConfirm" android:text="45 min" />
+            <View android:layout_width="8dp" android:layout_height="1dp" />
+            <TextView android:id="@+id/dur60" style="@style/ControlButton" android:nextFocusDown="@id/durConfirm" android:text="60 min" />
+            <View android:layout_width="8dp" android:layout_height="1dp" />
+            <TextView android:id="@+id/dur90" style="@style/ControlButton" android:nextFocusDown="@id/durCancel" android:text="90 min" />
+            <View android:layout_width="8dp" android:layout_height="1dp" />
+            <TextView android:id="@+id/dur120" style="@style/ControlButton" android:nextFocusRight="@id/dur30" android:nextFocusDown="@id/durCancel" android:text="120 min" />
+
+        </LinearLayout>
+
+        <!-- Confirm / Cancel -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/durConfirm"
+                style="@style/ControlButton"
+                android:nextFocusUp="@id/dur60"
+                android:nextFocusLeft="@id/durCancel"
+                android:text="@string/timer_duration_confirm" />
+
+            <View
+                android:layout_width="12dp"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:id="@+id/durCancel"
+                style="@style/ControlButton"
+                android:nextFocusUp="@id/dur90"
+                android:nextFocusRight="@id/durConfirm"
+                android:text="@string/timer_duration_cancel" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

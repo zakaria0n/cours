@@ -1,0 +1,37 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Atom nucleus -->
+    <path
+        android:fillColor="#132B5C"
+        android:pathData="M24,20m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+    <!-- Electron orbits -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M8,24C8,16 16,10 24,10C32,10 40,16 40,24C40,32 32,38 24,38C16,38 8,32 8,24Z"
+        android:strokeColor="#00D4F2"
+        android:strokeWidth="1.5"
+        android:strokeAlpha="0.6" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M12,14C14,18 18,22 24,24C30,26 36,26 40,22"
+        android:strokeColor="#00D4F2"
+        android:strokeWidth="1.5" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M12,34C14,30 18,26 24,24C30,22 36,22 40,26"
+        android:strokeColor="#00D4F2"
+        android:strokeWidth="1.5" />
+    <!-- Electrons -->
+    <path
+        android:fillColor="#F2C94C"
+        android:pathData="M40,24m-2.5,0a2.5,2.5 0,1 1,5 0a2.5,2.5 0,1 1,-5 0" />
+    <path
+        android:fillColor="#00D4F2"
+        android:pathData="M24,10m-2.5,0a2.5,2.5 0,1 1,5 0a2.5,2.5 0,1 1,-5 0" />
+    <path
+        android:fillColor="#00D4F2"
+        android:pathData="M24,38m-2.5,0a2.5,2.5 0,1 1,5 0a2.5,2.5 0,1 1,-5 0" />
+</vector>

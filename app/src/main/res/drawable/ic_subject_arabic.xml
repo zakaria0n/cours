@@ -1,0 +1,32 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Open book -->
+    <path
+        android:fillColor="#132B5C"
+        android:pathData="M6,36L6,12L24,10L24,36Z" />
+    <path
+        android:fillColor="#0B1D3A"
+        android:pathData="M42,36L42,12L24,10L24,36Z" />
+    <!-- Pages -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M8,14L22,12.5L22,34L8,35.5Z" />
+    <path
+        android:fillColor="#E8EDF5"
+        android:pathData="M40,14L26,12.5L26,34L40,35.5Z" />
+    <!-- Text lines left page -->
+    <path
+        android:fillColor="#132B5C"
+        android:pathData="M10,18L20,17L20,18.8L10,19.8ZM10,22L18,21.2L18,23L10,23.8Z" />
+    <!-- Text lines right page -->
+    <path
+        android:fillColor="#5B6475"
+        android:pathData="M28,17L38,18L38,19.8L28,18.8ZM28,21.2L36,22L36,23.8L28,23Z" />
+    <!-- Cyan bookmark -->
+    <path
+        android:fillColor="#00D4F2"
+        android:pathData="M24,8L28,12L24,16L24,8Z" />
+</vector>

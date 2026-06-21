@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Younes brand colors -->
+    <color name="younes_navy_dark">#0B1D3A</color>
+    <color name="younes_navy_blue">#132B5C</color>
+    <color name="younes_cyan">#00D4F2</color>
+    <color name="younes_gold">#F2C94C</color>
+    <color name="younes_white">#FFFFFF</color>
+    <color name="younes_background">#F6F8FC</color>
+    <color name="younes_text_primary">#0B1D3A</color>
+    <color name="younes_text_secondary">#5B6475</color>
+    <color name="younes_border">#E6EAF2</color>
+
+    <!-- Semantic colors -->
+    <color name="younes_card_bg">#FFFFFF</color>
+    <color name="younes_card_border">#E6EAF2</color>
+    <color name="younes_focus_glow">#4000D4F2</color>
+    <color name="younes_control_bar_bg">#E8FFFFFF</color>
+    <color name="younes_top_bar_bg">#FFFFFF</color>
+    <color name="younes_pdf_bg">#F0F2F6</color>
+    <color name="younes_loader_track">#E6EAF2</color>
+
+    <!-- Badges -->
+    <color name="younes_badge_sujet">#00D4F2</color>
+    <color name="younes_badge_correction">#F2C94C</color>
+    <color name="younes_badge_downloaded">#2ECC71</color>
+    <color name="younes_badge_favori">#F2C94C</color>
+    <color name="younes_badge_year">#0B1D3A</color>
+    <color name="younes_badge_coming_soon">#5B6475</color>
+
+    <!-- Control button text -->
+    <color name="control_button_text">#0B1D3A</color>
+    <color name="control_button_text_focused">#00D4F2</color>
+
+    <!-- Legacy aliases (keep for compatibility) -->
+    <color name="background_dark">#FFFFFF</color>
+    <color name="background_secondary">#F6F8FC</color>
+    <color name="text_light">#0B1D3A</color>
+    <color name="text_accent">#00D4F2</color>
+    <color name="text_gold">#F2C94C</color>
+    <color name="text_hint">#5B6475</color>
+    <color name="text_error">#E74C3C</color>
+    <color name="overlay_dim">#80000000</color>
+    <color name="control_bar_bg">#E8FFFFFF</color>
+    <color name="page_shadow">#F0F2F6</color>
+    <color name="top_bar_accent">#FFFFFF</color>
+    <color name="color_sujet">#00D4F2</color>
+    <color name="color_correction">#F2C94C</color>
+    <color name="color_downloaded">#2ECC71</color>
+    <color name="color_favorite">#F2C94C</color>
+</resources>

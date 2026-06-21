@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Younes</string>
+    <string name="preparation_title">Préparation Régional</string>
+    <string name="home_subtitle">3ème année collège</string>
+
+    <!-- Home -->
+    <string name="subject_icon">Icône matière</string>
+    <string name="continue_reading">Continuer la lecture</string>
+
+    <!-- Exam list -->
+    <string name="loading_exams">Chargement des examens…</string>
+    <string name="no_exams">Aucun examen trouvé</string>
+    <string name="no_connection">Pas de connexion Internet</string>
+    <string name="help_exam_list">↑↓ Naviguer    OK Ouvrir    ▶⏸ Favori    Retour Revenir</string>
+    <string name="retry">Réessayer</string>
+    <string name="update_available">Nouvelle version %s disponible</string>
+    <string name="update_download">Télécharger</string>
+    <string name="update_later">Plus tard</string>
+    <string name="update_downloading">Téléchargement en cours…</string>
+    <string name="update_install_permission">Autorisez l’installation, puis appuyez encore sur Télécharger.</string>
+    <string name="update_failed">Échec du téléchargement. Réessayez.</string>
+
+    <!-- Filters -->
+    <string name="filter_all">Tous</string>
+    <string name="filter_sujet">Sujets</string>
+    <string name="filter_correction">Corrections</string>
+    <string name="filter_favorites">Favoris</string>
+
+    <!-- Exam types -->
+    <string name="type_sujet">Sujet</string>
+    <string name="type_correction">Correction</string>
+
+    <!-- Download -->
+    <string name="downloading">Téléchargement %d%%</string>
+    <string name="download_complete">Téléchargé</string>
+    <string name="download_failed">Échec du téléchargement</string>
+    <string name="download_start">Téléchargement en cours…</string>
+
+    <!-- Page indicator -->
+    <string name="page_indicator">Page %1$d / %2$d</string>
+
+    <!-- Errors -->
+    <string name="error_pdf_not_found">PDF introuvable : vérifiez que exam.pdf est présent.</string>
+    <string name="error_pdf_open">Impossible d\'ouvrir le PDF.</string>
+    <string name="error_no_pdf_url">Lien PDF introuvable</string>
+
+    <!-- Help -->
+    <string name="help_title">Contrôles</string>
+    <string name="help_content">← / → Page précédente / suivante\n↑ / ↓ Zoom + / Zoom −\nZoomé : les flèches déplacent la page\nP+ / P− Change de page à tout moment\nOK Ouvrir le chrono\nGuide / Info Afficher cette aide\nRetour Quitter</string>
+    <string name="help_hint_bar">← → Pages    ↑ ↓ Zoom    P+/P− Pages    OK Chrono</string>
+
+    <!-- Control bar buttons -->
+    <string name="btn_previous">Précédent</string>
+    <string name="btn_next">Suivant</string>
+    <string name="btn_zoom_out">Zoom -</string>
+    <string name="btn_zoom_in">Zoom +</string>
+    <string name="btn_fit_page">Ajuster</string>
+    <string name="btn_fit_width">Pleine largeur</string>
+    <string name="btn_timer">Chrono</string>
+
+    <!-- Misc -->
+    <string name="loading_text">Chargement du PDF…</string>
+    <string name="zoom_format">Zoom %d%%</string>
+    <string name="offline_badge">Hors ligne</string>
+
+    <!-- Timer -->
+    <string name="timer_start">Démarrer</string>
+    <string name="timer_pause">Pause</string>
+    <string name="timer_resume">Reprendre</string>
+    <string name="timer_reset">Réinitialiser</string>
+    <string name="timer_add_5min">+5 min</string>
+    <string name="timer_close">Fermer</string>
+    <string name="timer_modify">Modifier</string>
+    <string name="timer_finish">Terminer</string>
+    <string name="timer_restart">Recommencer</string>
+    <string name="timer_title">Chrono examen</string>
+    <string name="timer_finished">Temps terminé</string>
+    <string name="timer_finished_subtitle">Le temps de l\'examen est écoulé</string>
+    <string name="timer_15min">15 min restantes</string>
+    <string name="timer_5min">5 min restantes</string>
+    <string name="timer_1min">Dernière minute !</string>
+    <string name="timer_duration_title">Choisir la durée</string>
+    <string name="timer_duration_confirm">Confirmer</string>
+    <string name="timer_duration_cancel">Annuler</string>
+    <string name="timer_exam_duration">Durée examen : %s</string>
+    <string name="timer_start_chrono">Démarrer chrono maintenant ?</string>
+    <string name="timer_disabled">Chrono désactivé pour corrigé</string>
+</resources>

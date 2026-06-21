@@ -1,0 +1,23 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Document with pen -->
+    <path
+        android:fillColor="#132B5C"
+        android:pathData="M10,6L30,6C31.1,6 32,6.9 32,8L32,38C32,39.1 31.1,40 30,40L10,40C8.9,40 8,39.1 8,38L8,8C8,6.9 8.9,6 10,6Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,10L28,10L28,12L12,12ZM12,16L24,16L24,18L12,18ZM12,22L26,22L26,24L12,24ZM12,28L22,28L22,30L12,30Z" />
+    <!-- Pen accent -->
+    <path
+        android:fillColor="#00D4F2"
+        android:pathData="M34,18L42,10L44,12L36,20Z" />
+    <path
+        android:fillColor="#00D4F2"
+        android:pathData="M32,20L34,18L36,20L34,22Z" />
+    <path
+        android:fillColor="#00D4F2"
+        android:pathData="M32,22L34,22L34,36C34,36.6 33.6,37 33,37C32.4,37 32,36.6 32,36Z" />
+</vector>
